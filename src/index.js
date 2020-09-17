@@ -3,10 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import reducer, {initialState} from './reducer/reducer';
+import { StateProvider } from './StateProvider';
+import { Store } from './StateProvider';
+
+import thunk from 'redux-thunk';
+import {createStore , applyMiddleware} from 'redux';
+
+const store = createStore(reducer, applyMiddleware(thunk));
+
 
 ReactDOM.render(
+  
   <React.StrictMode>
+  <StateProvider initialState={initialState} reducer={reducer} store = {store}>
     <App />
+  </StateProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
